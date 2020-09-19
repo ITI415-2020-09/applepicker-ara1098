@@ -8,8 +8,17 @@ public class HighScore : MonoBehaviour
 
     static public int score = 1000;
 
-    // Start is called before the first frame update
-    void Start()
+    void Awake()
+    {                                                          
+        if (PlayerPrefs.HasKey("HighScore"))
+        {                               
+            score = PlayerPrefs.GetInt("HighScore");
+        }
+        PlayerPrefs.SetInt("HighScore", score);                              
+    }
+
+       // Start is called before the first frame update
+       void Start()
     {
         
     }
@@ -20,5 +29,9 @@ public class HighScore : MonoBehaviour
         Text gt = this.GetComponent<Text>();
         gt.text = "High Score: " + score;
 
+        if (score > PlayerPrefs.GetInt("HighScore"))
+        {
+            PlayerPrefs.SetInt("HighScore", score);
+        }
     }
 }
